@@ -6,10 +6,10 @@ import TodoList from "./TodoList";
 const TodoApp = () => {
     const [todos, setTodos] = useState([]);
     const[filterdTodos, setFilterdTodos] = useState([]);
-    const [status, setStatus] = useState("ALL");
+    const [selectedOption, setsSelectedOption] = useState("ALL");
     useEffect(() => {
-        filterTodos(status);
-    }, [todos, status] )
+        filterTodos(selectedOption.value);
+    }, [todos, selectedOption] )
     const addTodo = (input) => {
         // console.log(input);
         const newTodo = {id: Math.floor(Math.random() * 1000), text: input, isCompleted: false,};
@@ -59,8 +59,8 @@ const TodoApp = () => {
             <NavBar 
                 todos={todos} 
                 filterTodos={filterTodos}
-                status = {status}
-                setStatus= {setStatus}
+                selectedOption = {selectedOption}
+                setsSelectedOption= {setsSelectedOption}
             />
             <TodoForm submitTodo={addTodo}/>
             <TodoList 

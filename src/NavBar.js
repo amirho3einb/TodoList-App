@@ -1,22 +1,27 @@
+import Select from 'react-select';
 
-
-const NavBar = ({todos, filterTodos, status, setStatus}) => {
+const NavBar = ({todos, filterTodos, setsSelectedOption, selectedOption}) => {
     const filterdTodos = todos.filter((todo)=>todo.isCompleted !== true);
     const unCompletedTodos = filterdTodos.length;
-    
+    const options = [
+        { value: 'ALL', label: 'ALL' },
+        { value: 'Completed', label: 'Completed' },
+        { value: 'Uncompleted', label: 'Uncompleted' },
+    ];
     const changeHandler = (e) => {
-        setStatus(e.target.value);
-        filterTodos(e.target.value);
+        setsSelectedOption(e);
+        filterTodos(e.value);
     }
-    if(!unCompletedTodos) return <h2 className="counter">set your today todos !</h2>
+    if(!unCompletedTodos) return <header><h2 className="nothing">set your today todos !</h2></header> 
     return (
         <header>
-            <h2 className="counter">{unCompletedTodos} are not completed</h2>
-            <select onChange={changeHandler} value={status}>
+            <h2 className="counter"><span className="numberCounter">{unCompletedTodos}</span> are not completed</h2>
+            <Select onChange={changeHandler} value={selectedOption} options={options} className="select"/>
+            {/* <select onChange={changeHandler} value={selectedOption}>
                 <option value="ALL">ALL</option>
                 <option value="Completed">Completed</option>
                 <option value="Uncompleted">Uncompleted</option>
-            </select>
+            </select> */}
         </header>
     );
 }
